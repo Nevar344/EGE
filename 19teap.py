@@ -14,11 +14,11 @@
 #     return s+2, s+4, s*2
 # @lru_cache(None)
 # def game(s):
-#     if s >=125: return "w"
-#     if any(game(i)=="w" for i in moves(s)): return "p1"
-#     if all(game(i)=="p1" for i in moves(s)): return "v1"
-#     if any(game(i)=="v1" for i in moves(s)): return "p2"
-#     if all(game(i) in ["p1", "p2"] for i in moves(s)): return "v2"
+#     if s >=125: return "w" #услвоие победы
+#     if any(game(i)=="w" for i in moves(s)): return "p1" #p1 это значит первый ход пети
+#     if all(game(i)=="p1" for i in moves(s)): return "v1" #v1 Это Ваня и в этом условии проверяется что при ходе пети он одержит победу
+#     if any(game(i)=="v1" for i in moves(s)): return "p2" #Это петя и при любом ходе вани он одержит победу
+#     if all(game(i) in ["p1", "p2"] for i in moves(s)): return "v2" #Это 2 ход Вани при котором он одержит победу 
 # print(19,[s for s in range(1,125) if game(s)=="v1"])
 # print(20,[s for s in range(1,125) if game(s)=="p2"])
 # print(21,[s for s in range(1,125) if game(s)=="v2"])
