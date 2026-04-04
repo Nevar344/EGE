@@ -137,3 +137,145 @@
 #     if F(i) == 19:
 #         m.append(i) #Создаем пустой список в который будем добавлять все значения н при котором выводится 19
 # print(min(m))
+
+# from sys import* #можно юзать всегда
+# setrecursionlimit(3000)
+# def F(n):
+#     if n == 1: return n
+#     if n >1: return n * F(n-1)
+# d = (F(2024)-5*F(2023))//F(2022)
+# print(d)
+
+#Search Program "N"
+# from functools import lru_cache
+# @lru_cache(None)
+# def F(n):
+#     if n == 0: return n
+#     if n>0 and n%2==0: return F(n/2) - 1
+#     if n>0 and n%2!=0: return 1 + F(n-1)
+# for n in range(4000):
+#     F(n)
+# k = 0
+# for i in range(1000):
+#     if F(i) == 0:
+#         k+=1
+# print(k)
+
+# #Задача где дана картинка снизу
+# # def F(n):
+# #     print("*")
+# #     if n > 1:
+# #         F(n-2)
+# #         F(n//2)
+# #         print("*")
+# #     print("*")
+# #Решение этой задачи снизу
+# def F(n):
+#     k = 2
+#     if n > 1:
+#         k += F(n-2) + F(n//2) + 1
+#     return k
+# print(F(127))
+
+# from functools import lru_cache
+# @lru_cache(None)
+# def f(n):
+#     if n < 100: return n**2
+#     if n > 99 and n%2==0: return f(n-1)//2
+#     if n > 99 and n%2!=0: return 2 * f(n-1)
+# for n in range(1, 20000): #увеличиваем при необходимости
+#     f(n)
+# print((1000 * f(16384))/f(7777))
+
+# from functools import lru_cache
+# @lru_cache(None)
+# def F(n):
+#     if n < 15: return 4
+#     if n >=15 and n%3==0: return F(2*n//3)+n-1
+#     if n >=15 and n%3!=0: return F(n-1)+3
+# for n in range(1, 1000):
+#     F(n)
+# for i in range(1, 1000):
+#     if F(i) == 251:
+#         print(i)
+
+#Протатип где есть  F(n) и G(n)
+# from functools import lru_cache
+# def f(n):
+#     return g(n-1)
+# @lru_cache(None)
+# def g(n):
+#     if n <= 9: return 3*n
+#     if n>9: return g(n-2)+1
+# for i in range(1, 50000):
+#     g(i)
+# print(f(47995))
+
+# from functools import lru_cache
+# def F(n):
+#     return G(n-1)+G(n-3)
+# @lru_cache(None)
+# def G(n):
+#     if n <=9: return 3*n
+#     if n > 9: return G(n-4)+2
+# for i in range(1, 50000):
+#     G(i)
+# print(F(42999))
+
+# from functools import lru_cache
+# @lru_cache(None)
+# def f(n):
+#     if n >=19: return f(n-4)+3580
+#     if n < 19: return 6 * (g(n-7)-36)
+# @lru_cache(None)
+# def g(n):
+#     if n >=248045: return n/20 + 28
+#     if n < 248045: return g(n+9)-4
+
+# for i in range(250000, 1, -1):
+#     g(i)
+# print(f(673))
+
+# from functools import lru_cache
+# @lru_cache(None)
+# def f(n):
+#     if n >=7000: return n
+#     if n < 7000: return f(n+2)+n+3
+# for i in range(10000, 1, -1):
+#     f(i)
+# d = f(52)-f(56)
+# print(d)
+
+#Найти G(n) тогда используем sys
+# import sys
+# sys.setrecursionlimit(3000)
+# def f(n):
+#     if n <=2:return n #Заметим в условии что F(n)=G(n)=n значит в функции F(n)==n и то же самое и в G(n)==n только напишем в рекурсии для G(n)
+#     if n >2: return g(n)+f(n-2)
+# def g(n):
+#     if n <=2:return n #Вот то самое G(n)==n как и говорили в стркое 113
+#     if n > 2: return f(n-1)-g(n-2)
+# print(g(15))
+
+# import sys
+# sys.setrecursionlimit(5000)
+# def f(n):
+#     if n >=3210: return 1
+#     if n<3210: return f(n+3)+7
+# def g(n):
+#     if n <10: return n
+#     if n >=10: return g(n-3)+5
+# print(f(15)-g(3000))
+
+#Найти N который равен 25
+# from functools import lru_cache
+# @lru_cache(None)
+# def f(n):
+#     if n<=2 or n == 8: return 0
+#     if n == 3: return 1
+#     if n >3 and n!=8: return f(n-2)+f(n-1)
+# for i in range(1,10000):
+#     f(i)
+# for n in range(1,10000):
+#     if f(n)==25:
+#         print(n)
