@@ -279,3 +279,48 @@
 # for n in range(1,10000):
 #     if f(n)==25:
 #         print(n)
+
+# from functools import lru_cache
+# @lru_cache(None)
+# def f(n):
+#     if n < 2:
+#         return 1
+#     if n >=2: return f(n-2)+f(n-1)
+# for i in range(1,10000):
+#     f(i)
+# for n in range(1000):
+#     if f(n)==34:
+#         print(n)
+
+#Определите сумму цифр результата для F(3063)
+# from functools import lru_cache
+# @lru_cache(None)
+# def f(n):
+#     if n <=10: return n * 2
+#     if n > 10 and n % 2 == 0: return f(n-3) -f(n-9) *2
+#     if n > 10 and n % 2 != 0: return f(n-2)*2  -f(n-7)
+
+# for n in range(4000):
+#     f(n)
+# print(sum(int(i) for i in str(f(3063))))
+
+# from functools import*
+# @lru_cache(None)
+# def f(n):
+#     if n <5: return n
+#     if n >=5: return 2*n*f(n-4)
+# for i in range(1,20000):
+#     f(i)
+# d = (f(13766)-9*f(13762))/f(13758)
+# print(d)
+
+# from functools import*
+# def f(n):
+#     return 2*(g(n-3)+8)
+# @lru_cache(None)
+# def g(n):
+#     if n < 10: return 2 * n
+#     if n >=10: return g(n-2)+1
+# for i in range(20000):
+#     g(i)
+# print(f(15548))
