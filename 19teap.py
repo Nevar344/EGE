@@ -36,3 +36,4 @@
 # print(19,[s for s in range(1,125) if game(s)==2])
 # print(20,[s for s in range(1,125) if game(s)==3])
 # print(21,[s for s in range(1,125) if game(s)==4])
+#hello team
