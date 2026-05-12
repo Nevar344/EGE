@@ -117,3 +117,139 @@
 # Qy = (y1-y3)
 # #ТК У НАС АБСОЛЮТНОЕ ПРОСЯТ И ЦЕЛУЮ ЧАСТЬ МЫ УБИРАЕМ МИНУСЫ
 # print(int(Qx*10000), int(Qy*10000))
+
+#Решение задач
+
+# from math import dist
+
+# base = '' #Будем пихать в строку все
+# files = ('27_A', '27_B')
+# eps = (1, 2)
+
+# for t in (0, 1):
+#     data = [tuple(map(float, line.replace(',', '.').split()))
+#             for line in open(base + files[t])]
+#     clusters = []
+#     while data:
+#         clusters.append([data.pop()])
+#         for p in clusters[-1]:
+#             neigh = [pt for pt in data if dist(p, pt) < eps[0]]
+#             clusters[-1] += neigh
+#             for pt in neigh:
+#                 data.remove(pt)
+#     print(len(clusters), [len(c) for c in clusters])
+#     clusters.sort(key=lambda c: len(c))
+#     centers = []
+#     for cl in clusters:
+#         c = []
+#         d_min = float('inf')
+#         for p in cl:
+#             d = sum(dist(p, pt) for pt in cl)
+#             if d < d_min:
+#                 d_min = d
+#                 c = p
+#         centers.append(c)
+#     if t == 0:
+#         A1 = min(len(c) for c in clusters)
+#         A2 = sum(dist(c, (-1.0, 1.3)) for c in centers) #т.к в условии было ограничение от центра до (-1.0: 1.3)
+#         print(A1, int(A2 * 10_000))
+#     else:
+#         B1 = sum(dist(p, centers[1]) < 1.6 for p in clusters[1]) - 1 #Условие что находится не более 1.6 от центра НЕ ВКЛЮЧАЯ ЦЕНТР
+#         B2 = max(dist(centers[2], p) for p in clusters[2])
+#         print(B1, int(B2 * 10_000))
+#Условие этой задачи:
+#𝐴1 — минимальное количество точек в кластере
+#𝐴2— сумму расстояний от центров кластеров до точки с координатами (−1,0; 1,3)
+#𝐵1— число точек, находящихся на расстоянии не более 1,6 от центра, не включая центр, в кластере со средним количеством точек
+#𝐵2— максимальное расстояние от центра кластера с наибольшим количеством точек до другой точки этого кластера
+
+#Задача 2
+
+# from math import dist
+
+# base = ''
+# files = ['27_A', '27_B']
+# eps = 1
+
+# for t in (0, 1):
+#     data = [tuple(map(float, line.replace(',', '.').split())) for line in open(base + files[t])]
+#     clusters = []
+
+#     while data:
+#         clusters.append([data.pop(0)])
+#         for p in clusters[-1]:
+#             neigh = [pt for pt in data if dist(p, pt) < eps]
+#             clusters[-1] += neigh
+#             for pt in neigh:
+#                 data.remove(pt)
+
+#     clusters.sort(key=lambda cl: len(cl))
+#     #print(len(clusters), [len(cl) for cl in clusters])
+
+#     centers = []
+#     for cl in clusters:
+#         dmin = float('inf')
+#         c = cl[0]
+#         for p in cl:
+#             d = sum(dist(p, pt) for pt in cl)
+#             if d < dmin:
+#                 dmin = d
+#                 c = p
+#         centers.append(c)
+#     if t == 0:
+#         p12 = [dist(p, (1.0, 1.)) for p in centers] #минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера
+#         print(int(min(p12) * 10_000), int(max(p12) * 10_000)) #максимальное расстояние от этой же точки до центра кластера
+#         #Тк расстояние одинаковое нет нужды перписывать одну формулу много раз легче в ответе написать минимум и максимум что и просят
+#     else:
+#         q12 = (len([p for p in clusters[-1] if dist(p, centers[-1]) < 1.2]), #наибольшим количеством точек число таких точек, которые находятся на расстоянии не более 1,2 от центра кластера
+#                len([p for p in clusters[-1] if dist(p, centers[-1]) < 0.75])) #наибольшим количеством точек число таких точек, которые находятся на расстоянии не более 0,75 от центра кластера
+#         print(q12[0], q12[1]) #Вывели 1 случай и 2 случай тоже чтобы много не писать сделали в 1 действие
+#Условие этой задачи:
+#P1 — минимальное расстояние от точки с координатами (1,0; 1,0) до центра кластера
+#P2— максимальное расстояние от этой же точки до центра кластера
+#Q1—  в кластере с наибольшим количеством точек число таких точек, которые находятся на расстоянии не более 1,2 от центра кластера
+#Q2— в кластере с наибольшим количеством точек число таких точек, которые находятся на расстоянии не более 0,75 от центра кластера
+
+#Задача номер 3
+
+# from math import dist
+
+# base = ''
+# files = ['27_A', '27_B']
+# eps = [1.5, 1]
+
+# for t in (0, 1):
+#     data = [tuple(map(float, line.replace(',', '.').split())) for line in open(base + files[t])]
+#     clusters = []
+
+#     while data:
+#         clusters.append([data.pop(0)])
+#         for p in clusters[-1]:
+#             neigh = [pt for pt in data if dist(p, pt) < eps[t]]
+#             clusters[-1] += neigh
+#             for pt in neigh:
+#                 data.remove(pt)
+#     if t == 0:
+#         clusters.sort(key=len)
+#     #print(len(clusters), [len(c) for c in clusters])
+
+#     centers = []
+#     for cl in clusters:
+#         dmin = float('inf')
+#         c = [0, 0]
+#         for p in cl:
+#             d = min([dist(p, pt) for pt in cl])
+#             if d < dmin:
+#                 dmin = d
+#                 c = p
+#         centers.append(c)
+#     #print(centers)
+#     if t == 0:
+#         p1 = len([p for p in clusters[1] if dist(p, centers[1]) <= 0.7])
+#         p2 = len([p for p in clusters[0] if dist(p, centers[0]) > 1.3])
+#         print(p1, p2)
+#     else:
+#         p0 = (1.7, 2.3)
+#         q1 = min(dist(p0, p) for p in centers)
+#         q2 = max(dist(p0, p) for p in centers)
+#         print(int(10_000 * q1), int(10_000 * q2))
