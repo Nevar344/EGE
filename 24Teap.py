@@ -64,3 +64,51 @@
 # # mx = max(len(i) for i in s1) #альтернатива
 # mx = max(map(len, s1)) #для поиска максимального колво идущих символов подрят
 # print(mx)
+
+#Двойные циклы (не надежный метод но тоже)
+#
+# s = open('1.txt').readline()
+# #print(len(s)) 6500000
+# maxx = 0
+# for i in range(len(s)):
+#     if i%100000==0: print(i)
+#     for j in range(i + maxx, len(s)):
+#         cut = s[i:j+1]
+#         if cut.count('2025') >50: break
+#         if cut.count('2025') == 50 and cut[-4:] == '2025' and cut.count('Y') >=140:
+#             maxx = max(maxx, len(cut))
+# print(maxx) #938
+
+#Двойным Указателем
+# s = open('1.txt').readline()
+# l = maxx = ky = k2025 = 0
+# for r in range(len(s)):
+#     if s[r] == 'Y': ky += 1
+#     if s[r-3:r+1] == '2025': k2025+=1 #От r мы делаем срез на 4 символа назад
+#     while k2025>50:
+#         if s[l:l+4] == '2025': k2025 -= 1
+#         if s[l] == 'Y': ky -= 1
+#         l+=1
+#     if k2025==50 and ky>=140 and s[r-3:r+1] == '2025':
+#         maxx = max(maxx, r-l+1)
+# print(maxx)
+
+#в файле минимальное колво символов
+#20 встретиться ровно 26 раз
+#Гласная буква встречается ровно один раз и заканчивается ею
+# s = open('2.txt').readline()
+# for c in "AEIOUQY": s = s.replace(c, 'A')
+# minn = 10**9
+# k20=ka=l=0
+# for r in range(len(s)):
+#     if s[r-1:r+1] == '20': k20+=1
+#     if s[r] == 'A': ka += 1
+#     while k20>26 or ka>1:
+#         if s[l:l+2] == '20': k20 -= 1
+#         if s[l] == 'A': ka -= 1
+#         l += 1
+#     if s[r] == 'A' and k20 == 26 and ka==1:
+#         while s[l:l + 2] != '20' and s[l] != 'A':
+#             l+=1
+#         minn = min(minn, r-l+1)
+# print(minn) #58
