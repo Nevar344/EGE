@@ -1,0 +1,272 @@
+рекомендую использовать этот бред на крайний случай если считать дохуя. ответ не гарантированно точный.
+
+================================================================================
+РУКОВОДСТВО И ГОТОВЫЕ ИСПРАВЛЕННЫЕ ШАБЛОНЫ ДЛЯ ЗАДАНИЯ 6 ЕГЭ (АВТОПОДЧЕТ ТОЧЕК)
+================================================================================
+
+Данный файл содержит полностью исправленное руководство и шаблоны для автоматического 
+подсчета целочисленных точек через графический холст (canvas). 
+Во всех шаблонах устранены две главные критические ошибки стандартных скриптов:
+1. Ошибка нулевой площади (баг Windows): функция find_overlapping(x, y, x, y) часто 
+   возвращает пустоту. Добавлено смещение в +1 пиксель: find_overlapping(..., x*k+1, -y*k+1).
+2. Сбой идентификатора заливки: поиск по canvas.find_all()[-1] может перехватить хвост или 
+   саму Черепаху вместо заливки. Теперь поиск идет надежно — по конкретному цвету фигуры.
+
+--------------------------------------------------------------------------------
+1. РАЗБОР КОМАНД И ПРАВИЛА ИЗМЕНЕНИЯ ПАРАМЕТРОВ
+--------------------------------------------------------------------------------
+
+k = 20
+Коэффициент масштабирования. Увеличивает фигуру.
+- Оптимально: от 20 до 50. Если перемещения в задании большие (например, Вперед 80), 
+  уменьшайте k до 10 или 5, чтобы рисунок поместился на экране.
+
+left(90)
+Поворот Черепахи вверх. В задачах ЕГЭ Черепаха изначально смотрит на север (вдоль оси Y). 
+Эту команду удалять нельзя.
+
+fillcolor('red') / fillcolor('blue')
+Принудительная установка цвета заливки. Нужна для того, чтобы скрипт безошибочно 
+нашел именно закрашенную область на холсте.
+
+begin_fill() и end_fill()
+Команды начала и завершения закраски контура.
+
+canvas = getcanvas()
+Извлекает графический холст для сканирования точек.
+
+for x in range(-350, 350):
+    for y in range(-350, 350):
+Циклы перебора точек. Диапазон должен гарантированно покрывать всю фигуру с запасом.
+
+-y * k
+Инверсия оси Y. В окне Python ось Y направлена вниз, а в математике — вверх. 
+Знак минус перед переменной 'y' обязателен во всех формулах поиска.
+
+--------------------------------------------------------------------------------
+2. ВСЕ ВАРИАЦИИ УСЛОВИЙ ПОД СЛОВЕСНЫЕ ФОРМУЛИРОВКИ ЗАДАНИЙ
+--------------------------------------------------------------------------------
+
+Вариант А: "Точки находятся СТРОГО ВНУТРИ области (границы НЕ учитывать)"
+if canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1) == (fill_id,):
+
+Вариант Б: "Точки находятся ВНУТРИ области, ВКЛЮЧАЯ ГРАНИЦЫ (линии учитывать)"
+if fill_id in canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1):
+
+Вариант В: "Точки находятся СТРОГО НА ЛИНИЯХ (на границах фигуры)"
+tup = canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1)
+if fill_id not in tup and len(tup) > 0:
+
+Вариант Г: ДВЕ ФИГУРЫ. "Точки на ПЕРЕСЕЧЕНИИ двух областей (СТРОГО ВНУТРИ обеих)"
+tup = canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1)
+if fill_1 in tup and fill_2 in tup and len(tup) == 2:
+
+Вариант Д: ДВЕ ФИГУРЫ. "Точки на ПЕРЕСЕЧЕНИИ двух областей, ВКЛЮЧАЯ ГРАНИЦЫ"
+tup = canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1)
+if fill_1 in tup and fill_2 in tup:
+
+Вариант Е: ДВЕ ФИГУРЫ. "Точки в ОБЪЕДИНЕНИИ двух областей (внутри хотя бы одной)"
+tup = canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1)
+if fill_1 in tup or fill_2 in tup:
+
+--------------------------------------------------------------------------------
+3. ПОЛНОСТЬЮ ИСПРАВЛЕННЫЕ ГОТОВЫЕ КОДЫ ДЛЯ КОПИРОВАНИЯ
+--------------------------------------------------------------------------------
+
+Шаблон №1: Одна фигура, точки СТРОГО ВНУТРИ (Решение вашей задачи с картинки)
+------------------------------------------------------------------------------
+from turtle import *
+
+speed(0)
+tracer(0)
+k = 20
+left(90)
+fillcolor('red')
+
+begin_fill()
+for i in range(21):  
+    fd(31 * k)       
+    rt(60)           
+end_fill()
+
+canvas = getcanvas()
+fill_id = None
+for item in canvas.find_all():
+    if canvas.type(item) == 'polygon' and canvas.itemcget(item, 'fill') == 'red':
+        fill_id = item
+
+c = 0
+for x in range(-350, 350):
+    for y in range(-350, 350):
+        if canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1) == (fill_id,):
+            c += 1
+
+print("Ответ:", c)
+done()
+
+
+Шаблон №2: Одна фигура, точки ВНУТРИ И НА ГРАНИЦАХ
+------------------------------------------------------------------------------
+from turtle import *
+
+speed(0)
+tracer(0)
+k = 20
+left(90)
+fillcolor('red')
+
+begin_fill()
+for i in range(21):
+    fd(31 * k)
+    rt(60)
+end_fill()
+
+canvas = getcanvas()
+fill_id = None
+for item in canvas.find_all():
+    if canvas.type(item) == 'polygon' and canvas.itemcget(item, 'fill') == 'red':
+        fill_id = item
+
+c = 0
+for x in range(-350, 350):
+    for y in range(-350, 350):
+        if fill_id in canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1):
+            c += 1
+
+print("Ответ:", c)
+done()
+
+
+Шаблон №3: Две фигуры, точки СТРОГО ВНУТРИ их пересечения
+------------------------------------------------------------------------------
+from turtle import *
+
+speed(0)
+tracer(0)
+k = 20
+left(90)
+canvas = getcanvas()
+
+# Рисование первой фигуры
+fillcolor('red')
+begin_fill()
+for i in range(6):
+    fd(10 * k)
+    rt(90)
+end_fill()
+
+up()
+fd(5 * k)
+rt(90)
+fd(5 * k)
+left(90)
+down()
+
+# Рисование второй фигуры
+fillcolor('blue')
+begin_fill()
+for i in range(4):
+    fd(12 * k)
+    rt(90)
+end_fill()
+
+fill_1 = [i for i in canvas.find_all() if canvas.type(i) == 'polygon' and canvas.itemcget(i, 'fill') == 'red'][-1]
+fill_2 = [i for i in canvas.find_all() if canvas.type(i) == 'polygon' and canvas.itemcget(i, 'fill') == 'blue'][-1]
+
+c = 0
+for x in range(-200, 200):
+    for y in range(-200, 200):
+        tup = canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1)
+        if fill_1 in tup and fill_2 in tup and len(tup) == 2:
+            c += 1
+
+print("Ответ:", c)
+done()
+
+
+Шаблон №4: Две фигуры, пересечение ВКЛЮЧАЯ ГРАНИЦЫ
+------------------------------------------------------------------------------
+from turtle import *
+
+speed(0)
+tracer(0)
+k = 20
+left(90)
+canvas = getcanvas()
+
+# Рисование первой фигуры
+fillcolor('red')
+begin_fill()
+for i in range(6):
+    fd(10 * k)
+    rt(90)
+end_fill()
+
+up()
+fd(3 * k)
+down()
+
+# Рисование второй фигуры
+fillcolor('blue')
+begin_fill()
+for i in range(4):
+    fd(12 * k)
+    rt(90)
+end_fill()
+
+fill_1 = [i for i in canvas.find_all() if canvas.type(i) == 'polygon' and canvas.itemcget(i, 'fill') == 'red'][-1]
+fill_2 = [i for i in canvas.find_all() if canvas.type(i) == 'polygon' and canvas.itemcget(i, 'fill') == 'blue'][-1]
+
+c = 0
+for x in range(-200, 200):
+    for y in range(-200, 200):
+        tup = canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1)
+        if fill_1 in tup and fill_2 in tup:
+            c += 1
+
+print("Ответ:", c)
+done()
+
+
+Шаблон №5: Две фигуры, ОБЪЕДИНЕНИЕ областей (внутри любой из них, включая границы)
+------------------------------------------------------------------------------
+from turtle import *
+
+speed(0)
+tracer(0)
+k = 20
+left(90)
+canvas = getcanvas()
+
+# Рисование первой фигуры
+fillcolor('red')
+begin_fill()
+for i in range(6):
+    fd(10 * k)
+    rt(90)
+end_fill()
+
+up()
+fd(4 * k)
+down()
+
+# Рисование второй фигуры
+fillcolor('blue')
+begin_fill()
+for i in range(4):
+    fd(12 * k)
+    rt(90)
+end_fill()
+
+fill_1 = [i for i in canvas.find_all() if canvas.type(i) == 'polygon' and canvas.itemcget(i, 'fill') == 'red'][-1]
+fill_2 = [i for i in canvas.find_all() if canvas.type(i) == 'polygon' and canvas.itemcget(i, 'fill') == 'blue'][-1]
+
+c = 0
+for x in range(-200, 200):
+    for y in range(-200, 200):
+        tup = canvas.find_overlapping(x * k, -y * k, x * k + 1, -y * k + 1)
+        if fill_1 in tup or fill_2 in tup:
+            c += 1
+
+print("Ответ:", c)
+done()
