@@ -212,3 +212,59 @@
 #     if len(r3) == 3 and len(r1) == 3 and (r3[0] > (sum(r1)/len(r1))):
 #         nums.append(num)
 # print(sum(nums) / len(nums))
+
+#Определить ковл строк для которых сумма чисел положительна
+#Все числа имеют различный остаток при делении на 13
+# c = 0
+# for j in open('9'):
+#     a = [int(x) for x in j.split()]
+#     t = [j % 13 for j in a]
+#     if sum(a)>0 and len(set(t)) == 5:
+#         c+=1
+#         print(a,t,c)
+
+#Определить колво строк в которых ХОТЯБЫ ОДНО ИЗ Сумма нечетных чисел кратна 7
+#Колво чисел, меньших 50 больше колво чисел, больщих 50
+# c = 0
+# for j in open('9'):
+#     a = [int(x) for x in j.split()]
+#     s1 = sum(j for j in a if j % 2 != 0) #Проверка что вся СУММА нечетные 
+#     s2 = len([j for j in a if j < 50])
+#     s3 = len([j for j in a if j > 50])
+#     if s1 % 7 == 0 or s2 > s3:
+#         c+=1
+# print(c)
+
+#Сумма повторяющих чисел в строке больше чем сумма неповт
+#Все числа в троке четные
+# c = 0
+# for j in open('9'):
+#     a = [int(x) for x in j.split()]
+#     sp = sum(j for j in a if a.count(j)>1)#Проверка на повторяющие
+#     snp = sum(j for j in a if a.count(j)==1)#Проверка на неповторяющие
+#     ch = [j % 2 == 0 for j in a]#Проверка на четность
+#     if sp > snp and all(ch): #Услвоие
+#         c+=1
+# print(c)
+
+#Сумма чисел строки равна 1000
+#Ровно 2 числа посторяются дважды
+#ХОТЯБЫ ОДНО ИЗ УСЛОВИЙ
+# c = 0
+# for j in open('9'):
+#     a = [int(x) for x in j.split()]
+#     sm = sum(a)
+#     cn = [a.count(j) for j in a] #Универсальная вещь которая дает колво повторябщих
+#     if sm == 1000 or cn.count(2) == 4:
+#         c+=1
+# print(c)
+
+#Максимальное число кратно минимальному числу
+#Колво неповт чисел равно результату деления макс на мин число
+# c = 0
+# for j in open('9'):
+#     a = [int(x) for x in j.split()]
+#     cn = len([j for j in a if a.count(j)== 1]) #Проверка на неповт 
+#     if (max(a) % min(a) == 0) and cn == (max(a)//min(a)):
+#         c+=1
+# print(c)
