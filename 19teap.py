@@ -140,3 +140,38 @@
 # for k2 in range(1,242):
 #     if F(17, k2, 1):
 #         print(k2) #111
+
+#две кучи школково
+# from functools import*
+# @lru_cache(None)
+# def f(a, b):
+#     if a+b >= 47:
+#         return 0
+#     t = [f(a+1, b), f(a*2, b), f(a, b+1), f(a, b*2)]
+#     n = [i for i in t if i <= 0]
+#     if n:
+#         return -max(n)+1
+#     else:
+#         return -max(t)
+# for s in range(1,43):
+#     if f(4, s) == 1: #Петя первым ходом 1/Ваня первым ходои -1 (для 2.3.4 и тд простом меняем само число например -2 второй ход вани)
+#         print(s)
+
+#Одна куча с лимитом
+# from functools import*
+# @lru_cache(None)
+# def f(a):
+#     if a>= 28: #Указывайте сами сколько нужно для победы на 1 больше
+#         return 0
+#     if a*2 <= 46:
+#         t = [f(a + 1), f(a * 2)]
+#     else:
+#         t = [f(a + 1)] #Тк первй не пойдет в те ходы котоые сразу дадут при умножении больше 46 (он и так победит)
+#     n = [i for i in t if i <= 0]
+#     if n:
+#         return -max(n)+1
+#     else:
+#         return -max(t)
+# for s in range(1,43):
+#     if f(s) == 1:
+#         print(s)
