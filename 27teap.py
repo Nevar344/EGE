@@ -311,3 +311,239 @@ for cl in clb: #Проверка на в каком кластере свехг�
 #Нужны 0, 2 кластеры
 b2 = dist(center(clb[0])[:2], center(clb[2])[:2]) #дистанция от центроида 0 клстера к 2 центроиду кластер
 print(int(b1*10000), int(b2*10000)) #1035 125591
+
+#Без дб сканов
+#1 задание
+# from math import dist
+# cl1 = []
+# cl2 = []
+# for i in open('27_A'):
+#     x, y = [float(g) for g in i.replace(',', '.').split()]
+#     if y < 3: #изначально посмотрел в ексель
+#         cl1.append([x,y])
+#     if y > 3:
+#         cl2.append([x,y])
+#
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl) #берем точку и сравниваем со всеми остальными точками и так мы суммируем эти расстояния
+#         mn.append([s,p1]) #сначало расстояние потом сама точка
+#     return min(mn)[1] #нашли центр нашего 1 кластера
+# #Решение пункта А
+# x1, y1 = center(cl1)
+# x2, y2 = center(cl2)
+# Px = (x1 + x2) / 2 #Среднее арефметич
+# Py = (y1 + y2) / 2
+# print('Ответ А:', int(Px * 10000), int(Py * 10000))
+
+#Клатсерилизация
+# from math import dist
+# cl1 = []
+# cl2 = []
+# cl3 = []
+# for i in open('27_B'):
+#     x, y = [float(j) for j in i.split()]
+#     if y < 4: cl1.append([x,y])
+#     if 4 < y < 7: cl2.append([x,y])
+#     if y > 7: cl3.append([x, y])
+#
+# #Поиск центра
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s, p1])
+#     return min(mn)[1]
+#
+# #Услвоие для пункта Б
+# x1, y1 = center(cl1)
+# x2, y2 = center(cl2)
+# x3, y3 = center(cl3)
+# Px = (x1 + x2 + x3) / 3
+# Py = (y1 + y2 + y3) / 3
+#
+# print(int(Px * 10_000), int(Py * 10_000))
+
+#2 Задание
+# from math import dist
+# cl1 = []
+# cl2 = []
+# for i in open('27_A'):
+#     x, y = [float(g) for g in i.replace(',', '.').split()]
+#     if y < 15: cl1.append([x,y])
+#     if y > 15: cl2.append([x, y])
+#
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s,p1])
+#     return min(mn)[1]
+#
+# x1, y1 = center(cl1)
+# x2, y2 = center(cl2)
+# Px = max(x1, x2) #Условие на максимальный из абцисс
+# Py = max(y1, y2) #услвоие на макс из ординат
+# print(int(Px * 10_000), int(Py * 10_000))
+#Пункт Б
+# from math import dist
+# cl1 = []
+# cl2 = []
+# cl3 = []
+# for i in open('27_B'):
+#     x, y = [float(j) for j in i.split()]
+#     if 5 < x < 20 and 0 < y < 10: cl1.append([x, y])
+#     if 5 < x < 15 and 10 < y < 22: cl2.append([x, y])
+#     if 5 < x < 15 and 22 < y < 30: cl3.append([x, y])
+#
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s,p1])
+#     return min(mn)[1]
+#
+# # print(len(cl1), len(cl2), len(cl3)) так мы смотрим какой из кластеров макс и мин и отсюда ищем те которые нужны
+# #cl1 - 397, cl2 - 131, cl3 = 75
+# x1, y1 = center(cl1)
+# x3, y3 = center(cl3)
+# Qx = abs(x1 - x3)
+# Qy = abs(y1 - y3)
+# print(int(Qx * 10_000), int(Qy * 10_000))
+
+#Задание 2 пункт А
+
+# from math import dist
+# cl1 = []
+# cl2 = []
+# for i in open('27_A'):
+#     x, y = [float(g) for g in i.replace(',', '.').split()]
+#     if y < 15: cl1.append([x,y])
+#     if y > 15: cl2.append([x, y])
+#
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s,p1])
+#     return min(mn)[1]
+#
+# x1, y1 = center(cl1)
+# x2, y2 = center(cl2)
+# Px = abs(x1 + x2) #Условие на максимальный из абцисс
+# Py = abs(y1 + y2) #услвоие на макс из ординат
+# print(int(Px * 10_000), int(Py * 10_000))
+
+# #Пункт Б
+
+# from math import dist
+# cl1 = []
+# cl2 = []
+# cl3 = []
+# for i in open('27_B'):
+#     x, y = [float(g) for g in i.replace(',', '.').split()]
+#     if 0 < x < 10: cl1.append([x,y])
+#     if 12 < x < 19: cl2.append([x, y])
+#     if 19 < x < 25: cl3.append([x, y])
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s,p1])
+#     return min(mn)[1]
+#
+# # print(len(cl1), len(cl2), len(cl3)) посмотрел просто так
+#
+# p1 = center(cl1)
+# p2 = center(cl2)
+# p3 = center(cl3)
+# d1 = dist(p1, p2)
+# d2 = dist(p1, p3)
+# d3 = dist(p2, p3)
+# Q1 = min(d1, d2, d3) #минимальное расстояние между центрами
+# Q2 = max(d1, d2, d3) #Максимальное расстояние между центрами
+# print(int(Q1*10_000), int(Q2*10_000))
+
+# #Пункт Б другого протатипа
+
+# from math import dist
+# cl1 = []
+# cl2 = []
+# cl3 = []
+# for i in open('27_B'):
+#     x, y = [float(g) for g in i.replace(',', '.').split()]
+#     if -30 < x < -10 and -50 < y < -30: cl1.append([x,y])
+#     if -10 < x < 10 and -50 < y < -20: cl2.append([x, y])
+#     if -50 < x < -30: cl3.append([x, y])
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s,p1])
+#     return min(mn)[1]
+#
+# p1 = center(cl1)
+# p2 = center(cl2)
+# p3 = center(cl3)
+# start = [0, 0]
+# d1 = dist(p1, start)
+# d2 = dist(p2, start)
+# d3 = dist(p3, start)
+# Q1 = min(d1, d2 ,d3) #минимальное расстояние от центра ДО НАЧАЛА кординат
+# Q2 = max(d1, d2, d3) #Максимальное расстояние от центра ДО НАЧАЛА кординат
+# print(int(Q1*10_000), int(Q2*10_000))
+
+# Пункт А Задча 6 хард
+
+# from math import dist
+# cl1 = []
+# cl2 = []
+# for i in open('27_A'):
+#     x, y = [float(g) for g in i.replace(',', '.').split()]
+#     if y < 15: cl1.append([x,y])
+#     if y > 15: cl2.append([x, y])
+#
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s,p1])
+#     return min(mn)[1]
+#
+# # print(len(cl1), len(cl2))
+# # 1)301 2)344
+# x1, y1 = center(cl1)
+# x2, y2 = center(cl2)
+# A1 = len([1 for x, y in cl2 if y < y2]) #Услвоие на то что в кластере с наиб колво точек число точек ордината которых менбше ординаты центра
+# A2 = abs(x1 - x2) # Условие что расстояние по очи абцисс между центрами кластеров
+# print(A1, int(A2*10_000))
+
+#Файл Б
+
+# from math import dist
+# cl1 = []
+# cl2 = []
+# cl3 = []
+# for i in open('27_B'):
+#     x, y = [float(g) for g in i.replace(',', '.').split()]
+#     if 25 < y < 35: cl1.append([x,y])
+#     if 18 < x < 23 and 10 < y < 20: cl2.append([x, y])
+#     if 25 < x < 30: cl3.append([x, y])
+#
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s,p1])
+#     return min(mn)[1]
+# # print(len(cl1), len(cl2), len(cl3)) 902 200 148 посомтрели наименьший кластер для задачи
+#
+# x3, y3 = center(cl3)
+# B1 = len([1 for x, y in cl3 if x3 - 0.9 < x < x3 + 0.9 and y3 - 0.9 < y < y3 + 0.9])
+# print(B1) #Условие что число точек наименьшего по колво точек кластера находящихсч ВНУТРИ квадрата с центром в центре этого кластера сторонами и длинной 1.8
+# #поэтому радиус этого квадрата равен 1.8 /2 = 0.9
+# x2, y2 = center(cl2)
+# x1, y1 = center(cl1)
+# B2 = abs(y2- y1) #Условие что расстояние по оси ординат между центрами кластеров с наибольшим и средним колво точек
+# print(int(B2*10_000))
