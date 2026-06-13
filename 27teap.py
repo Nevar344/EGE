@@ -547,3 +547,194 @@ print(int(b1*10000), int(b2*10000)) #1035 125591
 # x1, y1 = center(cl1)
 # B2 = abs(y2- y1) #Условие что расстояние по оси ординат между центрами кластеров с наибольшим и средним колво точек
 # print(int(B2*10_000))
+
+#Практика
+#Px​ — среднее арифметическое абсцисс центров кластеров, и PyPy​ — среднее арифметическое ординат центров кластеров. В ответе запишите четыре числа: в первой строке сначала целую часть произведения Px×10000Px​×10000, затем целую часть произведения Py×10000Py​×10000 для файла A, во второй строке — аналогичные данные для файла B.
+# from math import dist
+# def solve(filename, num_clusters):
+#     data = []
+#     for i in open(filename):
+#         x, y = [float(j) for j in i.split()]
+#         data.append([x, y])
+#     # Кластеризация (BFS-расширение)
+#     clasters = []
+#     while len(data) != 0:
+#         clasters.append([data.pop(0)])
+#         for p1 in clasters[-1]:
+#             sosedi = [p2 for p2 in data if dist(p1, p2) < 0.4]
+#             clasters[-1] += sosedi
+#             for p2 in sosedi: data.remove(p2)
+#     # Центроид: точка с минимальной суммой расстояний (истинный центр)
+#     def centroid(cl):
+#         mn = []
+#         for p1 in cl:
+#             s = sum(dist(p1, p2) for p2 in cl)
+#             mn.append([s, p1])
+#         return min(mn)[1]
+#     # Берём num_clusters крупнейших кластеров
+#     clasters.sort(key=len, reverse=True)
+#     centers = [centroid(cl) for cl in clasters[:num_clusters]]
+#     Px = sum(x for x, y in centers) / len(centers)
+#     Py = sum(y for x, y in centers) / len(centers)
+#     print(int(Px * 10000), int(Py * 10000))
+
+
+#С характеристиками
+#Пункт А (найти кординатуцентра каждого кластера а затем 2 числа абциссу и ординату красного ближайщего гиганта
+# cl1 = []
+# cl2 = []
+# red = []
+# for i in open('27_A'):
+#     x, y, type = i.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if type[0] == 'M' and type[2:] == 'III': red.append([x,y])#отдельн особираем гигнтов красных
+#     #проводим кластерилизацию
+#     if y < 15: cl1.append([x,y])
+#     if y > 15: cl2.append([x,y])
+# # print(len(cl1), len(cl2)) #114 121 отсюда вывод что наименьшее колво точек в 1 кластере (нужно для задания
+# from math import dist
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1,p2) for p2 in cl)
+#         mn.append([s, p1])
+#     return min(mn)[1]
+#
+# p1 = center(cl1)
+# mn = []
+# for pr in red:
+#     s = dist(p1, pr)
+#     mn.append([s, pr])
+# Ax, Ay = min(mn)[1]
+# print(int(Ax*10_000), int(Ay*10_000))
+#Пункт Б (Найти расстояние между центрами кластеров с наименьшим и наибольшим колво оранжевых гигантов/В2- наибольшее расстофние между желтыми карликами одного кластера)
+
+# y1, y2, y3 = [], [], []
+# o1, o2, o3 = [], [], []
+# cl1, cl2, cl3 = [], [], []
+# for i in open('27_B'):
+#     x, y, type = i.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if y < 30:
+#         cl1.append([x, y])
+#         if type[0] == 'K' and type[2:] == 'III': o1.append([x, y])
+#         if type[0] == 'G' and type[2:] == 'V': y1.append([x, y])
+#
+#     if y > 30 and x < 16:
+#         cl2.append([x, y])
+#         if type[0] == 'K' and type[2:] == 'III': o2.append([x, y])
+#         if type[0] == 'G' and type[2:] == 'V': y2.append([x, y])
+#
+#     if x > 16:
+#         cl3.append([x, y])
+#         if type[0] == 'K' and type[2:] == 'III': o3.append([x, y])
+#         if type[0] == 'G' and type[2:] == 'V': y3.append([x, y])
+#
+# from math import dist
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s, p1])
+#     return min(mn)[1]
+#
+# # print(len(o1), len(o2), len(o3)) 87 28 25 Проверили в каждом кластере сколько желтых
+# B1 = dist(center(cl1), center(cl3)) #максимальный с мин дистанция нужна по условию
+# #Поиск наибольшего расстояние между желтыми карликами одного кластера снизу показано как мы пробегаемся по всем карликам в каждом кластере и в конце мы соединяем все списки и находим максимальный
+# r1 = [dist(a,b) for a in y1 for b in y1 if a != b]
+# r2 = [dist(a,b) for a in y2 for b in y2 if a != b]
+# r3 = [dist(a,b) for a in y3 for b in y3 if a != b]
+# B2 = max(r1+r2+r3)
+#
+# print(int(B1*10_000), int(B2*10_000))
+
+#Задание 2 (А)
+#Мин расстояние от центра кластера д обелого карлика из этого же кластера  и тоже самое для максимального
+# cl1 = []
+# cl2 = []
+# w1, w2 = [], []
+# for i in open('27_A'):
+#     x, y, type = i.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     #проводим кластерилизацию
+#     if y < 9:
+#         cl1.append([x,y])
+#         if type == 'VII': w1.append([x,y])
+#     if y > 9:
+#         cl2.append([x,y])
+#         if type == 'VII': w2.append([x, y])
+# from math import dist
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s, p1])
+#     return min(mn)[1]
+# p1 =center(cl1)
+# p2 = center(cl2)
+# r1 = [dist(p1,p) for p in w1 if p1 != p]
+# r2 = [dist(p2,p) for p in w2 if p2 != p]
+# r = r1+r2
+# A1 =min (r)
+# A2 = max(r)
+# print(int(A1*10_000), int(A2*10_000))
+
+#Пункт Б
+#Мин расстояние между двумя звездами с подклассом не менее 8 расположеных в разных кластерах/В2 - среднее расстояние между двумя различн звездами с подклассом не менее 8 в одном кластере
+# cl1 = []
+# cl2 = []
+# cl3 = []
+# v1, v2, v3 = [], [], []
+# for i in open('27_B'):
+#     x, y, type = i.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     #проводим кластерилизацию
+#     if y < 15:
+#         cl1.append([x,y])
+#         if type[1] in ['8', '9']: v1.append([x,y])
+#     if 15 < y < 20:
+#         cl2.append([x, y])
+#         if type[1] in ['8', '9']: v2.append([x, y])
+#     if y > 21:
+#         cl3.append([x, y])
+#         if type[1] in ['8', '9']: v3.append([x, y])
+#
+# from math import dist
+# r1 = [dist(a ,b) for a in v1 for b in v2] #Смотрим все звезды в разных клатерах
+# r2 = [dist(a ,b) for a in v2 for b in v3]
+# r3 = [dist(a ,b) for a in v1 for b in v3]
+# B1 = min(r1+r2+r3)
+#
+# z1 = [dist(a,b) for a in v1 for b in v1 if a != b]
+# z2 = [dist(a,b) for a in v2 for b in v2 if a != b]
+# z3 = [dist(a,b) for a in v3 for b in v3 if a != b]
+# z = z1 + z2 + z3
+# B2 = sum(z) / len(z)
+# print(int(B1*10_000), int(B2*10_000))
+
+#Задание 3 (А)
+
+# cl1, cl2 = [], []
+# s3 = []
+# for i in open('27_A'):
+#     x, y, type = i.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     #проводим кластерилизацию
+#     if y < 9:
+#         cl1.append([x,y])
+#     if y > 9:
+#         cl2.append([x,y])
+#     if type[:2] == 'L3': s3.append([x,y])
+# from math import dist
+# def center(cl):
+#     mn = []
+#     for p1 in cl:
+#         s = sum(dist(p1, p2) for p2 in cl)
+#         mn.append([s, p1])
+#     return min(mn)[1] #Если просят АНТИЦЕНТР или КРАЙ то меняем на макс
+# # print(len(cl1), len(cl2)) 131 92
+# p2 = center(cl2)
+# A1 = max([dist(p2,p) for p in s3]) #Наиб расстояние от центра кластера с наименьшим колво точек до синей звезды
+# p1 = center(cl1)
+# A2 = max([dist(p1, p) for p in s3])#Наиб расстояние от центра с наибольшим колво точек до синей звезды
+# print(int(A1*10_000), int(A2*10_000))
