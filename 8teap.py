@@ -163,3 +163,45 @@
 #         s = ''.join(x)
 #         cnt.add(s)
 # print(len(cnt))
+
+#под каким номером в этом списке стоит последнее слово с нечётным номером, которое не начинается с букв Р, Т или Я и при этом содержит в своей записи не менее двух букв И.
+# from itertools import product
+#
+# alf = sorted('ТЕОРИЯ')
+# nomer = 0
+# posled = 0
+# for i in product(alf, repeat=6):
+#     slovo = ''.join(i)
+#     nomer += 1
+#     if (slovo[0] not in 'РТЯ'
+#             and slovo.count('И') >= 2
+#             and nomer % 2 == 1):
+#         posled = nomer
+# print(posled)
+
+#количество шестизначных чисел, записанных в семеричной системе счисления, в записи которых ровно одна цифра 6, при этом чётные и нечётные цифры чередуются.
+# from itertools import product
+#
+# k = 0
+# for i in product('0123456', repeat=6):
+#     a = ''.join(i)
+#     if a[0] != '0' and a.count('6') == 1:
+#         a2 = a.replace('2', '0').replace('4', '0').replace('6', '0')
+#         a2 = a2.replace('3', '1').replace('5', '1')
+#         if a2.count('00') == 0 and a2.count('11') == 0:
+#             k += 1
+# print(k)
+
+#количество пятизначных чисел, записанных в семеричной системе счисления, в записи которых:
+#1. только одна цифра 6;
+#2. сумма четных цифр числа меньше суммы нечетных цифр числа.
+# from itertools import product
+#
+# k = 0
+# for i in product('0123456', repeat=5):
+#     a = ''.join(i)
+#     chet = sum(int(c) for c in a if int(c) % 2 == 0)
+#     nechet = sum(int(c) for c in a if int(c) % 2 == 1)
+#     if a[0] != '0' and a.count('6') == 1 and chet < nechet:
+#         k += 1
+# print(k)
