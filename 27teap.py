@@ -738,3 +738,240 @@ print(int(b1*10000), int(b2*10000)) #1035 125591
 # p1 = center(cl1)
 # A2 = max([dist(p1, p) for p in s3])#Наиб расстояние от центра с наибольшим колво точек до синей звезды
 # print(int(A1*10_000), int(A2*10_000))
+
+#A1​ — минимальное расстояние от оранжевого сверхгиганта подкласса 9 до центра кластера
+#A2​ — максимальное расстояние от оранжевого сверхгиганта подкласса 9 до центра кластера
+#B1B1​ — в кластере с наибольшим количеством точек число звёзд с подклассом больше 7
+#B2​ — в кластере со средним количеством точек число звёзд с подклассом менее 4
+# A = [[], []]
+# for s in open('27_A.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if t == 'VII':
+#         t = '  VII'
+#     if y > 10:
+#         A[0].append([x, y, t])
+#     else:
+#         A[1].append([x, y, t])
+# def dist(p1, p2):
+#     x1, y1, t1 = p1
+#     x2, y2, t2 = p2
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+# def centr(cl):
+#     m = []
+#     for p in cl:
+#         s = sum(dist(p, p1) for p1 in cl)
+#         m.append([s, p])
+#     return min(m)[1]
+# c0 = centr(A[0])
+# c1 = centr(A[1])
+# x = [p for p in A[0] + A[1] if p[2] == 'N9I'][0]
+# A1 = int(min(dist(c0, x), dist(c1, x)) * 10000)
+# A2 = int(max(dist(c0, x), dist(c1, x)) * 10000)
+# print(A1, A2)
+# #Решение на Python файл Б:
+# B = [[], [], []]
+# for s in open('27_B.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if t == 'VII':
+#         t = '  VII'
+#     if y > 23:
+#         B[0].append([x, y, t])
+#     elif y > 15:
+#         B[1].append([x, y, t])
+#     else:
+#         B[2].append([x, y, t])
+# B1 = len([
+#     p for p in B[2]
+#     if p[2][1] != ' ' and int(p[2][1]) > 7
+# ])
+# B2 = len([
+#     p for p in B[1]
+#     if p[2][1] != ' ' and int(p[2][1]) < 4
+# ])
+# print(B1, B2)
+
+#A1​ — абсцисса центра кластера с наибольшим количеством белых звёзд подкласса 5
+#A2​ — ордината центра кластера с наименьшим количеством белых звёзд подкласса 5
+#B1​ — в кластере с наибольшим количеством точек среднее расстояние от центра кластера до ярких гигантов из этого же кластера
+#B2​ — в кластере с наименьшим количеством точек среднее расстояние от центра кластера до ярких гигантов из этого же кластера
+# A = [[], []]
+# for s in open('27_A.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if t == 'VII':
+#         t = '  VII'
+#     if y > 10:
+#         A[0].append([x, y, t])
+#     else:
+#         A[1].append([x, y, t])
+# def dist(p1, p2):
+#     x1, y1, t1 = p1
+#     x2, y2, t2 = p2
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+# def centr(cl):
+#     m = []
+#     for p in cl:
+#         s = sum(dist(p, p1) for p1 in cl)
+#         m.append([s, p])
+#     return min(m)[1]
+# x0, y0, t0 = centr(A[0])
+# x1, y1, t1 = centr(A[1])
+# k0 = len([p for p in A[0] if p[2][:2] == 'G5'])
+# k1 = len([p for p in A[1] if p[2][:2] == 'G5'])
+# A1 = int(x1 * 10000)
+# A2 = int(y0 * 10000)
+# print(A1, A2)
+# #Решение на Python файл Б:
+# B = [[], [], []]
+# for s in open('27_B.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if t == 'VII':
+#         t = '  VII'
+#     if y > 23:
+#         B[0].append([x, y, t])
+#     elif y > 15:
+#         B[1].append([x, y, t])
+#     else:
+#         B[2].append([x, y, t])
+# def dist(p1, p2):
+#     x1, y1, t1 = p1
+#     x2, y2, t2 = p2
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+# def centr(cl):
+#     m = []
+#     for p in cl:
+#         s = sum(dist(p, p1) for p1 in cl)
+#         m.append([s, p])
+#     return min(m)[1]
+# c2 = centr(B[2])
+# r = [
+#     dist(c2, p)
+#     for p in B[2]
+#     if p[2][2:] == 'II' and c2 != p
+# ]
+# B1 = int(sum(r) / len(r) * 10000)
+# c0 = centr(B[0])
+# r = [
+#     dist(c0, p)
+#     for p in B[0]
+#     if p[2][2:] == 'II' and c0 != p
+# ]
+# B2 = int(sum(r) / len(r) * 10000)
+# print(B1, B2)
+
+#A1​ — минимальное расстояние между центром одного кластера и оранжевым субгигантом другого кластера
+#A2​ — максимальное расстояние между центром одного кластера и оранжевым субгигантом другого кластера.
+#B1​ — самое большое значение абсциссы зелёного карлика в кластере с наибольшим количеством точек
+#B2​ — самое большое значение ординаты зелёного карлика в кластере с наименьшим количеством точек.
+# A = [[], []]
+# for s in open('27_A.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if t == 'VII':
+#         t = '  VII'
+#     if y > 10:
+#         A[0].append([x, y, t])
+#     else:
+#         A[1].append([x, y, t])
+# def dist(p1, p2):
+#     x1, y1, t1 = p1
+#     x2, y2, t2 = p2
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+# def centr(cl):
+#     m = []
+#     for p in cl:
+#         s = sum(dist(p, p1) for p1 in cl)
+#         m.append([s, p])
+#     return min(m)[1]
+# c0 = centr(A[0])
+# c1 = centr(A[1])
+# k0 = [p for p in A[0] if p[2][0] == 'N' and p[2][2:] == 'IV']
+# k1 = [p for p in A[1] if p[2][0] == 'N' and p[2][2:] == 'IV']
+# r = [dist(c0, p) for p in k1] + [dist(c1, p) for p in k0]
+# A1 = int(min(r) * 10000)
+# A2 = int(max(r) * 10000)
+# print(A1, A2)
+# #Решение на Python файл Б:
+# B = [[], [], []]
+# for s in open('27_B.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     if t == 'VII':
+#         t = '  VII'
+#
+#     x, y = float(x), float(y)
+#     if y > 23:
+#         B[0].append([x, y, t])
+#     elif y > 15:
+#         B[1].append([x, y, t])
+#     else:
+#         B[2].append([x, y, t])
+# B1 = max([p[0] for p in B[2] if p[2][0] == 'J' and p[2][2:] == 'V'])
+# B2 = max([p[1] for p in B[1] if p[2][0] == 'J' and p[2][2:] == 'V'])
+# print(int(B1 * 10000), int(B2 * 10000))
+
+#A1​ — наибольшее расстояние от центра кластера с наименьшим количеством точек до синей звезды подкласса 3
+#2​ — наибольшее расстояние от центра кластера с наибольшим количеством точек до синей звезды подкласса 3
+#B1​ — расстояние между центрами кластеров с наименьшим и наибольшим количеством синих звёзд
+#B2​ — максимальное расстояние между двумя синими звёздами, находящимися в различных кластерах.
+# A = [[], []]
+# for s in open('27_A.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if t == 'VII':
+#         t = '  VII'
+#     if y > 10:
+#         A[0].append([x, y, t])
+#     else:
+#         A[1].append([x, y, t])
+# def dist(p1, p2):
+#     x1, y1, t1 = p1
+#     x2, y2, t2 = p2
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+# def centr(cl):
+#     m = []
+#     for p in cl:
+#         s = sum(dist(p, p1) for p1 in cl)
+#         m.append([s, p])
+#     return min(m)[1]
+# c0 = centr(A[0])
+# c1 = centr(A[1])
+# k = [p for p in A[0] + A[1] if p[2][:2] == 'L3']
+# A1 = int(max(dist(c0, p) for p in k) * 10000)
+# A2 = int(max(dist(c1, p) for p in k) * 10000)
+# print(A1, A2)
+# #Решение на Python файл Б:
+# B = [[], [], []]
+# for s in open('27_B.txt'):
+#     x, y, t = s.replace(',', '.').split()
+#     x, y = float(x), float(y)
+#     if t == 'VII':
+#         t = '  VII'
+#     if y > 23:
+#         B[0].append([x, y, t])
+#     elif y > 15:
+#         B[1].append([x, y, t])
+#     else:
+#         B[2].append([x, y, t])
+# def dist(p1, p2):
+#     x1, y1, t1 = p1
+#     x2, y2, t2 = p2
+#     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+# def centr(cl):
+#     m = []
+#     for p in cl:
+#         s = sum(dist(p, p1) for p1 in cl)
+#         m.append([s, p])
+#     return min(m)[1]
+# k0 = [p for p in B[0] if p[2][0] == 'L']
+# k1 = [p for p in B[1] if p[2][0] == 'L']
+# k2 = [p for p in B[2] if p[2][0] == 'L']
+# c0 = centr(B[0])
+# c2 = centr(B[2])
+# B1 = int(dist(c0, c2) * 10000)
+# r = [dist(p1, p2) for p1 in k0 for p2 in k1 + k2] + \
+#     [dist(p1, p2) for p1 in k1 for p2 in k2]
+# B2 = int(max(r) * 10000)
+# print(B1, B2)
