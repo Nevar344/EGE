@@ -112,3 +112,21 @@
 #             l+=1
 #         minn = min(minn, r-l+1)
 # print(minn) #58
+
+#Q, R, W и цифр 1, 2, 4.
+#Определите в прилагаемом файле максимальное количество идущих подряд символов, среди которых ни одна буква не стоит рядом с буквой, а цифра – с цифрой.
+# a = open('24').readline()
+# mx = 0
+#
+# a = a.replace('R', 'Q').replace('W', 'Q')
+# a = a.replace('2', '1').replace('4', '1')
+#
+# for l in range(len(a)):
+#     for r in range(l + mx, len(a) + 1):
+#         s = a[l:r]
+#         if s.count('11') != s.count('QQ') or s.count('11') != 0 or s.count('QQ') != 0:
+#             break
+#         if s.count('11') == s.count('QQ'):
+#             mx = max(len(s), mx)
+#
+# print(mx)
