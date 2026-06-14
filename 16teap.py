@@ -324,3 +324,54 @@
 # for i in range(20000):
 #     g(i)
 # print(f(15548))
+
+#from functools import *
+# @lru_cache(None)
+# def F(n):
+#     return 3 * G(n - 3) + 7
+# @lru_cache(None)
+# def G(n):
+#     if n <= 20:
+#         return n + 2
+#     if n > 20:
+#         return G(n - 3) + 1
+# for n in range(1, 38000):
+#     G(n)
+# print(F(37811))
+
+# from functools import*
+# @lru_cache(None)
+# def f(n):
+#     if n >=7000: return n
+#     if n <7000: return f(n+2)+n+3
+# for i in range(20000, 1, -1):
+#     f(i)
+# d = (f(52)-f(56))
+
+# from functools import lru_cache
+# @lru_cache(None)
+# def G(n):  # определяем функцию G(n) с кешированием
+#     if n <= 9: return 3 * n  # базовый случай: если n <= 9, возвращаем 3 * n
+#     return G(n - 2) + 1  # рекурсия: если n > 9, возвращаем G(n-2) + 1
+# def F(n):  # определяем функцию F(n)
+#     return G(n - 1)  # по условию F(n) = G(n-1)
+# # Прогрев G: рекурсия вниз (n-2), база при n<=9 → прогрев ВВЕРХ
+# # F(47995) вызывает G(47994), значит надо прогреть G для n от 10 до 47994 включительно
+# for n in range(10, 47995): G(n)
+# print(F(47995))  # выводим ответ согласно условию задачи
+
+# from functools import *
+# def f(n):
+#     if n >= 19:
+#         return f(n - 4) + 3580
+#     else:
+#         return 6 * (g(n - 7) - 36)
+# @lru_cache()
+# def g(n):
+#     if n >= 248045:
+#         return n / 20 + 28
+#     else:
+#         return g(n + 9) - 4
+# for n in range(400000, 1, -1):
+#     g(n)
+# print(f(673))
