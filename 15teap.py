@@ -372,3 +372,10 @@
 # for A in range(1,1000): #тк для наибольшего НАТУРАЛЬНОГО то с единицы начинаем
 #     if all(F(x, A) for x in range(1,1000)): #Тк положительный то с 1
 #         print(A)
+
+# def f(x, a):
+#     B = 200 <= x <= 300
+#     return (x % a == 0) or (B <= (x % 77 != 0))
+# for a in range(1, 1000):
+#     if all(f(x, a) for x in range(1, 2000)):
+#         print(a)
