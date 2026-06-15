@@ -137,3 +137,20 @@ for ip in ip_network('23.140.159.160/255.255.252.0', 0):
     if left >= right:
         k += 1
 print(k)
+
+#Сколько в этой сети адрессов для которых сумма единиц в двочике четная
+# from ipaddress import *
+# k = 0
+# net = ip_network('192.168.32.160/255.255.255.240', 0)
+# for ip in net:
+#     ip2 = bin(int(ip))[2:].zfill(32)
+#     if ip2.count('1') % 2 == 0:
+#         k+=1
+# print(k)
+
+#Найти третий слева байт
+# from ipaddress import*
+# for mask in range(1,33):
+#     net1 = ip_network(f'117.191.176.37/{mask}', 0) #Адресс
+#     if str(net1.network_address) == '117.191.160.0': #узел
+#         print(net1.netmask)
