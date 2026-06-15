@@ -250,3 +250,38 @@
 # # print(max(otv)) # 105
 #     if k == 105:
 #         print(x)
+
+#14 подсчет шестерок в записи
+# for x in range(1, 50000000):
+#     n = 4 * 7**24 + 6 * 7**13 + 5 * 49**4 + 2 * 343**2 + 10 - x
+#     count_6 = 0
+#     count_0 = 0
+#     while n > 0:
+#         if n % 7 == 6:
+#             count_6 += 1
+#         if n % 7 == 0:
+#             count_0 += 1
+#         n //= 7
+#     if count_6 > count_0:
+#         print(x)
+#         break
+
+#14 гроб с неизвестной сс и операндами x y (yyxp)
+# alph = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# for p in range(10, 36):
+#     for x in alph[:p]:
+#         for y in alph[:p]:
+#             if int('32' + str(x) + '8', p) + int(str(x)*3 + '9', p) == int(str(y)*2 + '02', p):
+#                 print(int(str(y) + str(y) + str(x), p))
+
+#14 содержится ровно 2024 цифры 4
+# for x in range(1, 10**9):
+#     n = 4 * 5**2025 + 3 * 25**5 - x
+#     count_4 = 0
+#     while n > 0:
+#         if n % 5 == 4:
+#             count_4 += 1
+#         n //= 5
+#     if count_4 == 2024:
+#         print(x)
+#         break
