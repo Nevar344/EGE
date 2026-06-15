@@ -199,3 +199,76 @@
 #     if L == 2013:
 #         print(K)
 #         break
+
+#Прототип с сумма цифр когда сказано что сумма цифр делится на 2
+# otv = []
+# for N in range(1, 1000):
+#     R = bin(N)[2:]
+#     sm = sum(int(i) for i in R)
+#     if sm % 2 == 0:
+#         R = '10' + R[2:] + '0'
+#     else:
+#         R = '11' + R[2:] + '1'
+#     R = int(R, 2)
+#     if R < 35:
+#         otv.append(N)
+# print(max(otv))
+
+#когда сказанно что сумма цифр и ее остток от 2 дописывается в конец чсила и над б тоже самое
+# otv = []
+# for N in range(1, 1000):
+#     R = bin(N)[2:]
+#     sm = sum(int(i) for i in R) #а
+#     R = R + str(sm % 2)
+#
+#     sm = sum(int(i) for i in R) #б
+#     R = R + str(sm % 2)
+#
+#     R = int(R, 2)
+#     if R > 77:
+#         otv.append(N)
+# print(min(otv))
+
+#а) если число делится на 3 то дописывается последние 3 цифры
+#б) иначе остаток от деления умножается на 3, переводится в двоичную запись и дописывается в конец числа
+# otv = []
+# for N in range(1, 1000):
+#     R = bin(N)[2:]
+#     if N % 3 == 0:
+#         R = R + R[-3:]
+#     else:
+#         R = R + bin(N % 3 * 3)[2:]
+#     R = int(R, 2)
+#     if R > 151:
+#         otv.append(R)
+# print(min(otv))
+
+#Где говррят что если разряде стоит 0 то заменяется на 00 а если 1 то на 11
+# otv = []
+# for N in range(1, 1000):
+#     R = bin(N)[2:]
+#     R = R.replace('0', '00').replace('1', '11')
+#     R = int(R, 2)
+#     if R > 63:
+#         otv.append(R)
+# print(min(otv))
+
+#Троичная
+# otv = []
+# def T(x):
+#     if x == 0: return '0'
+#     s = ''
+#     while x > 0:
+#         s = str(x % 3) + s
+#         x = x // 3
+#     return s
+# for N in range(1,1000):
+#     R = T(N)
+#     if N % 3 == 0:
+#         R = R + R[-2:]
+#     else:
+#         R = R + T(N % 3 * 5)
+#     R = int(R, 3)
+#     if R > 133:
+#         otv.append(R)
+# print(min(otv))
