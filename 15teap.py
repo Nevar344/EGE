@@ -352,3 +352,23 @@
 #         if all((x in c)<=((x in A) and (not(x in B))) for x in range(1,10000)):
 #             print(y)
 #             break
+
+#Поразрядная коньюнкция
+
+# def F(x, A):
+#     return (x & 39 == 0) or ((x & 11 == 0) <= (not(x & A == 0)))
+# for A in range(0,1000):
+#     if all(F(x, A) for x in range(0,1000)):
+#         print(A)
+
+# def F(x, y, A):
+#     return (2*x+y != 70) or (x < y) or (A < x)
+# for A in range(1000):
+#     if all(F(x, y, A) for x in range(1000) for y in range(1000)): #так при любых не отриц тогда начинаем с 0
+#         print(A)
+
+# def F(x, A):
+#     return (x % A == 0) or (70<=x<=90) <= (not(x % 22 == 0))
+# for A in range(1,1000): #тк для наибольшего НАТУРАЛЬНОГО то с единицы начинаем
+#     if all(F(x, A) for x in range(1,1000)): #Тк положительный то с 1
+#         print(A)
