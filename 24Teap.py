@@ -279,3 +279,16 @@
 #                     mx = max(mx, c)
 #                 break
 # print(mx)
+
+#Текстовый файл состоит из символов T, U, V, W, X, Y и Z
+#символ Z встречается не менее 270 раз
+# s = open('24dz.txt').readline()
+# m = 100000
+# for l in range(len(s)):
+#     for r in range(l+m, l, -1):
+#         c = s[l:r]
+#         if c.count('Z') < 270:
+#             break
+#         else:
+#             m = min(m,len(c))
+# print(m)
